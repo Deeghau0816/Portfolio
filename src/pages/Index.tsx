@@ -7,19 +7,38 @@ import Resume from "@/components/Resume";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import ScrollToTop from "@/components/ScrollToTop";
+import ErrorBoundary from "@/components/ErrorBoundary";
 
 const Index = () => {
   return (
     <div className="min-h-screen">
-      <Navbar />
-      <Hero />
-      <About />
-      <Skills />
-      <Projects />
-      <Resume />
-      <Contact />
-      <Footer />
-      <ScrollToTop />
+      <ErrorBoundary>
+        <Navbar />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Hero />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <About />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Skills />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Projects />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Resume />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Contact />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <Footer />
+      </ErrorBoundary>
+      <ErrorBoundary>
+        <ScrollToTop />
+      </ErrorBoundary>
     </div>
   );
 };

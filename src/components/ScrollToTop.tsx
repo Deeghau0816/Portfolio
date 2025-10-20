@@ -9,15 +9,25 @@ const ScrollToTop = () => {
     if (typeof window === "undefined") return;
 
     const toggleVisibility = () => {
-      if (window.scrollY > 300) {
-        setIsVisible(true);
-      } else {
-        setIsVisible(false);
+      try {
+        if (window.scrollY > 300) {
+          setIsVisible(true);
+        } else {
+          setIsVisible(false);
+        }
+      } catch (error) {
+        console.error("Error in scroll handler:", error);
       }
     };
 
     window.addEventListener("scroll", toggleVisibility);
-    return () => window.removeEventListener("scroll", toggleVisibility);
+    return () => {
+      try {
+        window.removeEventListener("scroll", toggleVisibility);
+      } catch (error) {
+        console.error("Error removing scroll listener:", error);
+      }
+    };
   }, []);
 
   const scrollToTop = () => {

@@ -10,10 +10,21 @@ const Navbar = () => {
     if (typeof window === "undefined") return;
 
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      try {
+        setIsScrolled(window.scrollY > 20);
+      } catch (error) {
+        console.error("Error in scroll handler:", error);
+      }
     };
+
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
+    return () => {
+      try {
+        window.removeEventListener("scroll", handleScroll);
+      } catch (error) {
+        console.error("Error removing scroll listener:", error);
+      }
+    };
   }, []);
 
   const navLinks = [
