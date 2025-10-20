@@ -2,14 +2,21 @@
 import react from "@vitejs/plugin-react-swc";
 import path from "path";
 
-export default defineConfig(({ mode }) => ({
-  base: mode === "production" ? "/Portfolio/" : "/",
-  server: { host: "::", port: 8080 },
+export default defineConfig({
+  base: "/Portfolio/",     // 👈 Required for GitHub Pages
   plugins: [react()],
+  build: {
+    outDir: "dist",
+    assetsDir: "assets",
+    sourcemap: true,
+  },
   resolve: {
     alias: {
       "@": path.resolve(__dirname, "./src"),
     },
   },
-  build: { sourcemap: true }
-}));
+  server: {
+    host: "0.0.0.0",
+    port: 8080,
+  },
+});
