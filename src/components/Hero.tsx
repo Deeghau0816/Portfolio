@@ -5,11 +5,15 @@ import heroPortrait from "@/assets/profile-photo.jpg";
 const Hero = () => {
   const handleDownloadCV = () => {
     // Link to CV file
-    window.open("#resume", "_self");
+    if (typeof window !== "undefined") {
+      window.open("#resume", "_self");
+    }
   };
 
   const handleContactClick = () => {
-    document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+    if (typeof document !== "undefined") {
+      document.querySelector("#contact")?.scrollIntoView({ behavior: "smooth" });
+    }
   };
 
   return (
