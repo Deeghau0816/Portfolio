@@ -1,4 +1,4 @@
-name: Deploy to GitHub Pages
+﻿name: Deploy to GitHub Pages
 
 on:
   push:
@@ -18,20 +18,55 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Node info
+        run: |
+          node -v || true
+          npm -v || true
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
         with:
           node-version: 20
-      - name: Install deps
-        run: npm ci || npm i
-      - name: Build
-        run: npm run build
+          cache: "npm"
+
+      - name: Show package.json scripts
+        run: |
+          cat package.json
+          node -e "const p=require('./package.json'); console.log('\nScripts:', p.scripts)"
+
+      - name: Install deps (ci fallback)
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --no-audit --no-fund
+          else
+            npm i --no-audit --no-fund
+          fi
+
+      - name: Verify vite build script exists
+        run: |
+          node -e "const p=require('./package.json'); if(!p.scripts||!p.scripts.build){process.exit(1)}" \
+          || (echo 'ERROR: missing "build" script in package.json (expected "vite build")' && exit 1)
+
+      - name: Build (verbose)
+        env:
+          # prevents CRA from failing on warnings; harmless for Vite
+          CI: "false"
+        run: |
+          npm run build --silent || (echo '--- BUILD FAILED ---'; exit 1)
+          echo '--- dist contents ---'
+          ls -la dist || true
+
       - name: Configure Pages
         uses: actions/configure-pages@v5
-      - name: Upload artifact
+
+      - name: Upload artifact (dist)
         uses: actions/upload-pages-artifact@v3
         with:
           path: dist
+
   deploy:
     environment:
       name: github-pages
