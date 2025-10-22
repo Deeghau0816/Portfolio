@@ -4,9 +4,14 @@ import heroPortrait from "@/assets/profile-photo.jpg";
 
 const Hero = () => {
   const handleDownloadCV = () => {
-    // Link to CV file
+    // Download CV from public folder
     if (typeof window !== "undefined") {
-      window.open("#resume", "_self");
+      const link = document.createElement('a');
+      link.href = '/Portfolio/Deeghau_Vidarshana_Resume.pdf';
+      link.download = 'Deeghau_Vidarshana_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
     }
   };
 

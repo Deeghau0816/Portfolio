@@ -4,8 +4,15 @@ import { Download, Briefcase, Award } from "lucide-react";
 
 const Resume = () => {
   const handleDownload = () => {
-    // In production, this would link to an actual CV file
-    alert("CV download will be available soon!");
+    // Download CV from public folder
+    if (typeof window !== "undefined") {
+      const link = document.createElement('a');
+      link.href = '/Portfolio/Deeghau_Vidarshana_Resume.pdf';
+      link.download = 'Deeghau_Vidarshana_Resume.pdf';
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    }
   };
 
   return (
