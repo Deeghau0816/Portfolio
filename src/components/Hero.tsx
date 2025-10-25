@@ -8,7 +8,7 @@ const Hero = () => {
     if (typeof window !== "undefined") {
       const link = document.createElement('a');
       // For GitHub Pages with base path
-      link.href = `${import.meta.env.BASE_URL}Deeghau_Vidarshana_Resume.pdf`;
+      link.href = `${import.meta.env.BASE_URL}Deeghau_Vidarshana_Resume_v2.pdf`;
       link.download = 'Deeghau_Vidarshana_Resume.pdf';
       link.target = '_blank'; // Open in new tab as fallback
       document.body.appendChild(link);
