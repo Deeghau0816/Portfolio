@@ -5,7 +5,7 @@ export default function VideoBackground() {
     <>
       <video
         className="fixed inset-0 h-full w-full object-cover -z-20"
-        src="/videos/BackgroundVideo.mp4"
+        src="/Portfolio/videos/BackgroundVideo.mp4"
         autoPlay
         loop
         muted
